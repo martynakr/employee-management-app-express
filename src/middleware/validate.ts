@@ -20,3 +20,20 @@ export function validateBody(schema: ZodType): RequestHandler {
         next();
     };
 }
+
+export function validateQuery(schema: ZodType): RequestHandler {
+    return (req, res, next) => {
+        const result = schema.safeParse(req.query);
+
+        if (!result.success) {
+            res.status(400).json({
+                message: "Invalid query parameters",
+                errors: result.error.issues,
+            });
+            return;
+        }
+
+        res.locals.validatedQuery = result.data;
+        next();
+    };
+}

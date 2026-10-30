@@ -1,40 +1,21 @@
 import "dotenv/config";
 import mongoose from "mongoose";
-
 import { connectDatabase } from "../config/database.js";
+import { seedDepartments } from "./departments.seeder.js";
 import Department from "../modules/departments/department.model.js";
+import Employee from "../modules/employees/employee.model.js";
+import { seedEmployees } from "./employees.seeder.js";
 
-const departmentNames: string[] = [
-    "Engineering",
-    "Human Resources",
-    "Finance",
-    "Marketing",
-    "Operations",
-    "Customer Support",
-    "Sales",
-    "Legal",
-];
-
-async function seedDepartments() {
+async function seedDatabase() {
     await connectDatabase();
-
-    const departmentCount = await Department.countDocuments();
-
-    if (departmentCount > 0) {
-        console.log("Departments collection is not empty. Skipping seed.");
-        return;
-    }
-
-    for (const name of departmentNames) {
-        await Department.create({ name });
-    }
-
-    console.log(`${departmentNames.length} departments seeded successfully.`);
+    await Department.deleteMany({});
+    await Employee.deleteMany({});
+    await seedDepartments();
+    await seedEmployees(20);
 }
-
-seedDepartments()
+seedDatabase()
     .catch((error: unknown) => {
-        console.error("Department seeding failed:", error);
+        console.error("Seeding failed:", error);
         process.exitCode = 1;
     })
     .finally(async () => {
