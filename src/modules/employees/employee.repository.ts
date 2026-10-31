@@ -36,3 +36,12 @@ export async function existsByWorkEmail(workEmail: string): Promise<boolean> {
     const employee = await Employee.exists({ workEmail });
     return employee !== null;
 }
+
+export function findById(employeeId: string) {
+    return Employee.findById(employeeId);
+}
+
+export async function existsById(employeeId: string) {
+    const employee = await Employee.exists({ _id: employeeId });
+    return employee !== null;
+}

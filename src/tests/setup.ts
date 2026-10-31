@@ -1,6 +1,7 @@
 import { beforeAll, afterAll, beforeEach } from "vitest";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
+import { afterEach } from "vitest";
 
 let mongoServer: MongoMemoryServer;
 
@@ -9,10 +10,12 @@ beforeAll(async () => {
     await mongoose.connect(mongoServer.getUri());
 });
 
-beforeEach(async () => {
+afterEach(async () => {
     const collections = mongoose.connection.collections;
-    for (const collection of Object.values(collections)) {
+
+    for (const [name, collection] of Object.entries(collections)) {
         await collection.deleteMany({});
+        // console.log(`${name}:`, await collection.countDocuments());
     }
 });
 

@@ -8,3 +8,7 @@ export function create(data: CreateDepartmentDto) {
 export function findAll() {
     return Department.find().sort({ name: 1 });
 }
+
+export function findById(id: string) {
+    return Department.findById(id);
+}

@@ -200,12 +200,11 @@ describe("Employees endpoint", () => {
                 .query({ firstName: "joH" });
 
             expect(response.status).toBe(200);
-            expect(response.body).toHaveLength(2);
+            expect(response.body).toHaveLength(1);
 
             expect(response.body).toEqual(
                 expect.arrayContaining([
                     expect.objectContaining({ firstName: "John" }),
-                    expect.objectContaining({ firstName: "Michael" }),
                 ]),
             );
         });

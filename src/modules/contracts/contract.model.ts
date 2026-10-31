@@ -10,12 +10,12 @@ const contractSchema = new Schema(
         },
         contractType: {
             type: String,
-            enum: [],
+            enum: ["FIXED_TERM", "ONGOING"],
             required: true,
         },
         employmentBasis: {
             type: String,
-            enum: [],
+            enum: ["FULL_TIME", "PART_TIME", "CASUAL"],
             required: true,
         },
         hoursPerWeek: {
@@ -50,7 +50,10 @@ const contractSchema = new Schema(
     },
     {
         timestamps: true,
-        toJSON: { virtuals: true },
+        toJSON: {
+            virtuals: true,
+            transform: (_doc, { _id, __v, ...rest }) => rest,
+        },
         toObject: { virtuals: true },
     },
 );

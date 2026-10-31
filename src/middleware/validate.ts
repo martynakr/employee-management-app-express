@@ -1,5 +1,6 @@
 import type { RequestHandler } from "express";
 import type { ZodType } from "zod";
+import { isValidObjectId } from "mongoose";
 
 export function validateBody(schema: ZodType): RequestHandler {
     return (req, res, next) => {
@@ -37,3 +38,14 @@ export function validateQuery(schema: ZodType): RequestHandler {
         next();
     };
 }
+
+export const validateObjectId =
+    (...paramNames: string[]): RequestHandler =>
+    (req, res, next) => {
+        for (const name of paramNames) {
+            if (!isValidObjectId(req.params[name])) {
+                return res.status(400).json({ message: `Invalid ${name}` });
+            }
+        }
+        next();
+    };
