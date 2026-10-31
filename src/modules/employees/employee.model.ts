@@ -29,6 +29,17 @@ const employeeSchema = new Schema(
     },
     {
         timestamps: true,
+        versionKey: false,
+        toJSON: {
+            transform: (_doc, ret) => {
+                const { createdAt, updatedAt, __v, ...rest } =
+                    ret as typeof ret & {
+                        createdAt?: Date;
+                        updatedAt?: Date;
+                    };
+                return rest;
+            },
+        },
     },
 );
 
