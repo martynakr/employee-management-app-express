@@ -1,5 +1,7 @@
 # Employee Management App
 
+![CI Tests](https://github.com/martynakr/employee-management-app-express/actions/workflows/tests.yml/badge.svg)
+
 A full-stack employee management application built with React, TypeScript, Express, and MongoDB. The application provides a REST API for managing employees and their associated departments, roles, and contracts, with a React frontend for interacting with the data.
 
 | Area              | Technologies                 |
