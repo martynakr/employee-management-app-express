@@ -16,6 +16,10 @@
 
     --text-heading: 3rem;
     --text-body: 1.125rem;
+    --text-small: 0.875rem;
+
+    --color-error: #9b3d3d;
+
     --spacing-padding: 3em;
     --spacing-section: 4rem;
     --spacing-section-lg: 7rem;

@@ -16,7 +16,7 @@ export async function seedEmployees(amount: number) {
 
     while (generatedEmails.size < amount) {
         const firstName = faker.person.firstName();
-        const lastName = faker.person.lastName();
+        const lastName = faker.person.lastName().split("-")[0] || "";
 
         const email = faker.internet
             .email({

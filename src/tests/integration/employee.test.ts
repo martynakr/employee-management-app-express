@@ -154,53 +154,22 @@ describe("Employees endpoint", () => {
             );
         });
 
-        it("should filter employees by first name", async () => {
-            const response = await request(app)
-                .get("/api/employees")
-                .query({ firstName: "John" });
-
-            expect(response.status).toBe(200);
-            expect(response.body).toHaveLength(1);
-            expect(response.body[0]).toEqual(
-                expect.objectContaining({
-                    firstName: "John",
-                    lastName: "Smith",
-                }),
-            );
-        });
-
         it("should filter employees by last name", async () => {
             const response = await request(app)
                 .get("/api/employees")
-                .query({ lastName: "Smith" });
+                .query({ search: "Smith" });
 
             expect(response.status).toBe(200);
             expect(response.body).toHaveLength(2);
         });
 
-        it("should filter employees by both first name and last name", async () => {
-            const response = await request(app).get("/api/employees").query({
-                firstName: "John",
-                lastName: "Smith",
-            });
-
-            expect(response.status).toBe(200);
-            expect(response.body).toHaveLength(1);
-            expect(response.body[0]).toEqual(
-                expect.objectContaining({
-                    firstName: "John",
-                    lastName: "Smith",
-                }),
-            );
-        });
-
         it("should perform case-insensitive partial matching", async () => {
             const response = await request(app)
                 .get("/api/employees")
-                .query({ firstName: "joH" });
+                .query({ search: "joH" });
 
             expect(response.status).toBe(200);
-            expect(response.body).toHaveLength(1);
+            expect(response.body).toHaveLength(2);
 
             expect(response.body).toEqual(
                 expect.arrayContaining([
@@ -212,7 +181,7 @@ describe("Employees endpoint", () => {
         it("should return an empty array if no employees match the filters", async () => {
             const response = await request(app)
                 .get("/api/employees")
-                .query({ firstName: "Nonexistent" });
+                .query({ search: "Nonexistent" });
 
             expect(response.status).toBe(200);
             expect(response.body).toEqual([]);

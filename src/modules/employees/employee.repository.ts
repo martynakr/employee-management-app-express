@@ -10,21 +10,17 @@ export function create(data: CreateEmployeeData) {
 }
 
 export function findAll(filters: GetEmployeesQueryDto) {
-    const query: Record<string, unknown> = {};
+    const terms = filters.search?.trim().split(/\s+/).filter(Boolean) ?? [];
 
-    if (filters.firstName) {
-        query.firstName = {
-            $regex: escapeRegex(filters.firstName),
-            $options: "i",
-        };
-    }
+    const query = terms.length
+        ? {
+              $and: terms.map((term) => {
+                  const regex = { $regex: escapeRegex(term), $options: "i" };
+                  return { $or: [{ firstName: regex }, { lastName: regex }] };
+              }),
+          }
+        : {};
 
-    if (filters.lastName) {
-        query.lastName = {
-            $regex: escapeRegex(filters.lastName),
-            $options: "i",
-        };
-    }
     return Employee.find(query);
 }
 

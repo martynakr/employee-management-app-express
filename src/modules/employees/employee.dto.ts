@@ -7,10 +7,8 @@ export const createEmployeeSchema = z.object({
 });
 
 export const getEmployeesQuerySchema = z.object({
-    firstName: z.string().trim().optional(),
-    lastName: z.string().trim().optional(),
+    search: z.string().trim().optional(),
 });
-
 export type CreateEmployeeDto = z.infer<typeof createEmployeeSchema>;
 
 export type GetEmployeesQueryDto = z.infer<typeof getEmployeesQuerySchema>;

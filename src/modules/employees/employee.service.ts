@@ -17,7 +17,7 @@ async function generateWorkEmail(
     firstName: string,
     lastName: string,
 ): Promise<string> {
-    const domain = "employee-management.com";
+    const domain = "employr.com";
 
     const baseEmail = `${firstName}.${lastName}`.toLowerCase();
 
