@@ -16,9 +16,7 @@ describe("Employees endpoint", () => {
                 .send(employeeDto);
 
             expect(response.status).toBe(201);
-            expect(response.body.workEmail).toBe(
-                "test.employee@employee-management.com",
-            );
+            expect(response.body.workEmail).toBe("test.employee@employr.com");
             expect(response.body._id).toBeDefined();
         });
 
