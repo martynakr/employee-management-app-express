@@ -1,5 +1,6 @@
 import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
 import { cn } from "../../../utils/tailwind-utils";
+import Label from "../../typography/Label/Label";
 
 interface InputProps<
     T extends FieldValues = FieldValues,
@@ -25,12 +26,9 @@ const Input = <T extends FieldValues = FieldValues>({
     return (
         <div className="flex flex-col gap-1">
             {label && (
-                <label
-                    className={cn("font-bold", labelClassName)}
-                    htmlFor={name}
-                >
-                    {label}:
-                </label>
+                <Label as="label" htmlFor={name} className={labelClassName}>
+                    {label}
+                </Label>
             )}
             <input
                 id={name}

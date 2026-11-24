@@ -5,6 +5,7 @@ import type { Employee } from "../../services/employees";
 import Button from "../Button/Button";
 import Card from "../Card/Card";
 import Avatar from "../Avatar/Avatar";
+import Label from "../typography/Label/Label";
 
 interface EmployeeCardProps {
     employee: Employee;
@@ -33,10 +34,10 @@ const EmployeeCard = ({ employee }: EmployeeCardProps) => {
             </div>
 
             <div className="min-w-0">
-                <p className="mb-0.5 flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-text-muted">
+                <Label className="mb-0.5 flex items-center gap-1.5">
                     <FontAwesomeIcon icon={faBriefcase} className="text-[0.7rem]" />
                     Work email
-                </p>
+                </Label>
                 <a
                     href={`mailto:${employee.workEmail}`}
                     className="block truncate text-small text-text-main hover:text-primary hover:underline"

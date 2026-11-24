@@ -7,6 +7,7 @@ import H1 from "../components/typography/H1/H1";
 import Loader from "../components/Loader/Loader";
 import Card from "../components/Card/Card";
 import Avatar from "../components/Avatar/Avatar";
+import Label from "../components/typography/Label/Label";
 
 const EmployeePage = () => {
     const { employeeId = "" } = useParams();
@@ -52,25 +53,25 @@ const EmployeePage = () => {
 
                     <dl className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div>
-                            <dt className="mb-1 text-xs font-medium uppercase tracking-wide text-text-muted">
+                            <Label as="dt" className="mb-1">
                                 First name
-                            </dt>
+                            </Label>
                             <dd className="text-text-main">
                                 {employee.firstName}
                             </dd>
                         </div>
                         <div>
-                            <dt className="mb-1 text-xs font-medium uppercase tracking-wide text-text-muted">
+                            <Label as="dt" className="mb-1">
                                 Last name
-                            </dt>
+                            </Label>
                             <dd className="text-text-main">
                                 {employee.lastName}
                             </dd>
                         </div>
                         <div>
-                            <dt className="mb-1 text-xs font-medium uppercase tracking-wide text-text-muted">
+                            <Label as="dt" className="mb-1">
                                 Personal email
-                            </dt>
+                            </Label>
                             <dd>
                                 <a
                                     href={`mailto:${employee.email}`}
@@ -81,9 +82,9 @@ const EmployeePage = () => {
                             </dd>
                         </div>
                         <div>
-                            <dt className="mb-1 text-xs font-medium uppercase tracking-wide text-text-muted">
+                            <Label as="dt" className="mb-1">
                                 Work email
-                            </dt>
+                            </Label>
                             <dd>
                                 <a
                                     href={`mailto:${employee.workEmail}`}
