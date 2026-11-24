@@ -185,4 +185,38 @@ describe("Employees endpoint", () => {
             expect(response.body).toEqual([]);
         });
     });
+
+    describe("GET /employees/:employeeId", () => {
+        it("should return the employee if it exists", async () => {
+            const created = await request(app).post("/api/employees").send({
+                firstName: "John",
+                lastName: "Smith",
+                email: "john.smith@test.com",
+            });
+
+            const response = await request(app).get(
+                `/api/employees/${created.body._id}`,
+            );
+
+            expect(response.status).toBe(200);
+            expect(response.body).toEqual(created.body);
+        });
+
+        it("should return 404 if the employee does not exist", async () => {
+            const response = await request(app).get(
+                "/api/employees/665f1c2e8a1b2c3d4e5f6a7b",
+            );
+
+            expect(response.status).toBe(404);
+        });
+
+        it("should return 400 if the id is not a valid ObjectId", async () => {
+            const response = await request(app).get(
+                "/api/employees/not-an-id",
+            );
+
+            expect(response.status).toBe(400);
+            expect(response.body.message).toBe("Invalid employeeId");
+        });
+    });
 });

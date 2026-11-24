@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.css";
 import MainLayout from "./layouts/MainLayout";
 import EmployeesPage from "./pages/EmployeesPage";
+import EmployeePage from "./pages/EmployeePage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 
@@ -12,6 +13,10 @@ function App() {
                 <Routes>
                     <Route element={<MainLayout />}>
                         <Route path="/" element={<EmployeesPage />} />
+                        <Route
+                            path="/employees/:employeeId"
+                            element={<EmployeePage />}
+                        />
                     </Route>
                 </Routes>
             </BrowserRouter>

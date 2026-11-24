@@ -17,3 +17,16 @@ export async function getEmployees(search = ""): Promise<Employee[]> {
 
     return await response.json();
 }
+
+export async function getEmployee(employeeId: string): Promise<Employee> {
+    const response = await fetch(`${API_URL}employees/${employeeId}`);
+    if (!response.ok) {
+        throw new Error(
+            response.status === 404
+                ? "Employee not found"
+                : "Failed to fetch employee",
+        );
+    }
+
+    return await response.json();
+}

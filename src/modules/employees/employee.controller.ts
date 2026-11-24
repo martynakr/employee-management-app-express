@@ -25,3 +25,15 @@ export const getEmployees: RequestHandler = async (req, res, next) => {
         next(error);
     }
 };
+
+export const getEmployeeById: RequestHandler = async (req, res, next) => {
+    try {
+        const employee = await employeeService.getEmployeeById(
+            req.params.employeeId as string,
+        );
+
+        res.status(200).json(employee);
+    } catch (error) {
+        next(error);
+    }
+};
