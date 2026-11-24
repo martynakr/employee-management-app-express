@@ -35,6 +35,7 @@ const Searchbar = ({ onSearch, label }: SearchbarProps) => {
         <Form methods={methods} onSubmit={() => {}} className="w-96 max-w-full">
             <Input
                 label={label}
+                labelClassName="text-right"
                 name={"search"}
                 register={methods.register}
                 placeholder="Search"

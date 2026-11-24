@@ -9,6 +9,7 @@ interface InputProps<
     label?: string;
     error?: string;
     placeholder?: string;
+    labelClassName?: string;
 }
 
 const Input = <T extends FieldValues = FieldValues>({
@@ -18,12 +19,16 @@ const Input = <T extends FieldValues = FieldValues>({
     error,
     placeholder,
     className,
+    labelClassName,
     ...props
 }: InputProps<T>) => {
     return (
         <div className="flex flex-col gap-1">
             {label && (
-                <label className="font-bold" htmlFor={name}>
+                <label
+                    className={cn("font-bold", labelClassName)}
+                    htmlFor={name}
+                >
                     {label}:
                 </label>
             )}

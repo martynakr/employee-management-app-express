@@ -4,6 +4,7 @@ import H1 from "../components/typography/H1/H1";
 import EmployeeList from "../components/EmployeeList/EmployeeList";
 import { useState } from "react";
 import Searchbar from "../components/Form/Searchbar/Searchbar";
+import Loader from "../components/Loader/Loader";
 
 const EmployeesPage = () => {
     const [search, setSearch] = useState("");
@@ -24,6 +25,7 @@ const EmployeesPage = () => {
                 <Searchbar onSearch={setSearch} label="Search for employees" />
             </div>
 
+            {isLoading && <Loader label="Loading employees..." />}
             {employees && <EmployeeList employees={employees} />}
         </div>
     );
