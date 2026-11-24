@@ -3,7 +3,7 @@ import { cn } from "../../utils/tailwind-utils";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
-    variant?: "primary" | "secondary";
+    variant?: "primary" | "secondary" | "tertiary";
 }
 
 const Button = ({
@@ -21,6 +21,9 @@ const Button = ({
 
         secondary:
             "bg-surface text-primary border border-border hover:bg-background hover:border-primary active:scale-[0.98]",
+
+        tertiary:
+            "px-3 py-2 bg-transparent text-primary hover:bg-primary/5 hover:text-navy",
     };
     return (
         <button

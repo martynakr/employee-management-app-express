@@ -32,7 +32,7 @@ const Searchbar = ({ onSearch, label }: SearchbarProps) => {
     }, [search, onSearch]);
 
     return (
-        <Form methods={methods} onSubmit={() => {}}>
+        <Form methods={methods} onSubmit={() => {}} className="w-96 max-w-full">
             <Input
                 label={label}
                 name={"search"}

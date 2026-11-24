@@ -5,6 +5,7 @@ import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 import Button from "../Button/Button";
 import Form from "../Form/Form";
+import Textarea from "../Form/Textarea/Textarea";
 import ChatMessageComponent from "./ChatMessage";
 import { sendChatMessage } from "../../services/chat";
 
@@ -31,6 +32,7 @@ const createMessage = (
 
 const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [isThinking, setIsThinking] = useState(false);
 
     const [messages, setMessages] = useState<ChatMessage[]>([
         createMessage(
@@ -45,12 +47,7 @@ const Chatbot = () => {
         },
     });
 
-    const {
-        register,
-        reset,
-        watch,
-        formState: { isSubmitting },
-    } = methods;
+    const { register, reset, watch } = methods;
 
     const input = watch("question");
 
@@ -60,7 +57,7 @@ const Chatbot = () => {
         messagesEndRef.current?.scrollIntoView({
             behavior: "smooth",
         });
-    }, [messages, isSubmitting]);
+    }, [messages, isThinking]);
 
     const handleSend: SubmitHandler<ChatFormValues> = async ({ question }) => {
         const trimmedQuestion = question.trim();
@@ -73,6 +70,7 @@ const Chatbot = () => {
         ]);
 
         reset();
+        setIsThinking(true);
 
         try {
             const answer = await sendChatMessage({
@@ -91,6 +89,8 @@ const Chatbot = () => {
                     "Sorry, I couldn't process your question. Please try again.",
                 ),
             ]);
+        } finally {
+            setIsThinking(false);
         }
     };
 
@@ -126,7 +126,7 @@ const Chatbot = () => {
                             />
                         ))}
 
-                        {isSubmitting && (
+                        {isThinking && (
                             <div className="flex justify-start">
                                 <div className="rounded-2xl rounded-bl-sm bg-surface px-4 py-3 text-sm text-text-muted shadow-sm">
                                     Thinking...
@@ -143,8 +143,10 @@ const Chatbot = () => {
                             onSubmit={handleSend}
                             className="my-0 flex-row items-end gap-2"
                         >
-                            <textarea
-                                {...register("question")}
+                            <Textarea
+                                name="question"
+                                register={register}
+                                wrapperClassName="flex-1"
                                 onKeyDown={(event) => {
                                     if (
                                         event.key === "Enter" &&
@@ -156,13 +158,12 @@ const Chatbot = () => {
                                 }}
                                 placeholder="Ask a question..."
                                 rows={1}
-                                disabled={isSubmitting}
-                                className="max-h-28 min-h-10 flex-1 resize-none rounded-xl border border-border bg-surface px-3 py-2 text-sm text-text-main outline-none placeholder:text-text-muted focus:border-primary focus:ring-1 focus:ring-primary disabled:bg-background"
+                                disabled={isThinking}
                             />
 
                             <Button
                                 type="submit"
-                                disabled={!input.trim() || isSubmitting}
+                                disabled={!input.trim() || isThinking}
                                 variant="primary"
                                 className="rounded-xl px-4 py-2"
                             >

@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getEmployees, type Employee } from "../services/employees";
+import { getEmployees } from "../services/employees";
 import H1 from "../components/typography/H1/H1";
-import EmployeeCard from "../components/EmployeeCard/EmployeeCard";
+import EmployeeList from "../components/EmployeeList/EmployeeList";
 import { useState } from "react";
 import Searchbar from "../components/Form/Searchbar/Searchbar";
 
@@ -17,7 +17,6 @@ const EmployeesPage = () => {
         placeholderData: keepPreviousData,
     });
 
-    console.log(employees);
     return (
         <div>
             <div className="flex items-center justify-between">
@@ -25,12 +24,7 @@ const EmployeesPage = () => {
                 <Searchbar onSearch={setSearch} label="Search for employees" />
             </div>
 
-            <div >
-                {employees &&
-                    employees.map((e: Employee) => (
-                        <EmployeeCard key={e._id} employee={e} />
-                    ))}
-            </div>
+            {employees && <EmployeeList employees={employees} />}
         </div>
     );
 };
