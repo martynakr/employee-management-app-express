@@ -1,5 +1,6 @@
 import type { FieldValues, Path, UseFormRegister } from "react-hook-form";
 import { cn } from "../../../utils/tailwind-utils";
+import Label from "../../typography/Label/Label";
 
 interface TextareaProps<
     T extends FieldValues = FieldValues,
@@ -25,9 +26,9 @@ const Textarea = <T extends FieldValues = FieldValues>({
     return (
         <div className={cn("flex flex-col gap-1", wrapperClassName)}>
             {label && (
-                <label className="font-bold" htmlFor={name}>
-                    {label}:
-                </label>
+                <Label as="label" htmlFor={name}>
+                    {label}
+                </Label>
             )}
             <textarea
                 id={name}

@@ -14,6 +14,7 @@ export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
         res.status(404).json({
             message: err.message,
         });
+        return;
     }
 
     if (err instanceof ValidationError) {
@@ -21,6 +22,7 @@ export const errorHandler: ErrorRequestHandler = (err, _req, res, _next) => {
             message: err.message,
             errors: err.errors,
         });
+        return;
     }
 
     res.status(500).json({

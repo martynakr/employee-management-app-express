@@ -9,7 +9,11 @@ import {
     getEmployeesQuerySchema,
 } from "./employee.dto.js";
 
-import { createEmployee, getEmployees } from "./employee.controller.js";
+import {
+    createEmployee,
+    getEmployeeById,
+    getEmployees,
+} from "./employee.controller.js";
 import {
     createContract,
     getContracts,
@@ -54,6 +58,32 @@ const router = Router();
  */
 router.post("/", validateBody(createEmployeeSchema), createEmployee);
 router.get("/", validateQuery(getEmployeesQuerySchema), getEmployees);
+
+/**
+ * @openapi
+ * /api/employees/{employeeId}:
+ *   get:
+ *     summary: Get an employee by ID
+ *     tags:
+ *       - Employees
+ *     parameters:
+ *       - in: path
+ *         name: employeeId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           pattern: '^[a-f\d]{24}$'
+ *         description: The ID of the employee
+ *         example: 665f1c2e8a1b2c3d4e5f6a7b
+ *     responses:
+ *       200:
+ *         description: The employee
+ *       400:
+ *         description: Invalid employee ID
+ *       404:
+ *         description: Employee not found
+ */
+router.get("/:employeeId", validateObjectId("employeeId"), getEmployeeById);
 
 /**
  * @openapi
