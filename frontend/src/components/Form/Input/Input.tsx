@@ -33,10 +33,10 @@ const Input = <T extends FieldValues = FieldValues>({
                 {...props}
                 {...register(name)}
                 className={cn(
-                    "w-full rounded border border-navy p-1  bg-white focus:border-primary focus:ring-1 focus:ring-primary ",
+                    "h-10 w-full rounded-xl border bg-surface px-3 py-2 text-sm text-text-main outline-none placeholder:text-text-muted focus:ring-1 disabled:bg-background",
                     error
-                        ? "border-error focus:border-error focus:ring-1 focus:ring-error"
-                        : "focus:border-navy focus:ring-1 focus:ring-navy",
+                        ? "border-error focus:border-error focus:ring-error"
+                        : "border-border focus:border-primary focus:ring-primary",
                     className,
                 )}
             />
