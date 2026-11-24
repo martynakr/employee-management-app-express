@@ -131,6 +131,32 @@ It also handles MongoDB duplicate key errors, returning a 409 Conflict response 
 
 Unexpected errors are handled with a generic 500 Internal Server Error response, avoiding the exposure of internal implementation details to clients.
 
+## Frontend components
+
+### Polymorphic `as` pattern
+
+Some reusable components use the polymorphic `as` pattern. This lets the same component keep its styling while rendering a different HTML element, depending on where it's used:
+
+- **Card** – a styled container that can render as a `div` (default), `article` or `section`
+- **Label** – small, uppercase label text that can render as a `p` (default), `label`, `dt` or `span`
+
+For example, `Label` renders as a `<label>` for form inputs, so clicking it focuses the input, and as a `<dt>` inside a definition list on the employee page:
+
+```tsx
+<Label as="label" htmlFor="search">Search for employees</Label>
+<Label as="dt">Work email</Label>
+```
+
+Inside the component, the `as` prop is renamed to a capitalised variable, so JSX treats it as a dynamic element rather than a literal `<as>` tag:
+
+```tsx
+const Label = ({ as: Component = "p", ...props }: LabelProps) => (
+    <Component {...props} />
+);
+```
+
+This keeps the markup semantic and accessible without having to create a separate component for each element.
+
 ## Testing
 
 ### Backend Integration Tests
@@ -169,5 +195,4 @@ The following are examples of prompts used during development:
 
 ## Next steps:
 
-- Add a dedicated employee page
 - Add a form to create a contract for an employee
